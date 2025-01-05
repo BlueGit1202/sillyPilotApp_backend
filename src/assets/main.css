@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-catppuccin-base text-catppuccin-text font-sans;
+  }
+}
+
+@layer components {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .chat-bubble {
+    @apply relative max-w-[85%] my-2 px-4 py-3 rounded-2xl shadow-md transition-all duration-200 transform-gpu;
+  }
+
+  .chat-bubble::before {
+    content: '';
+    @apply absolute bottom-3 w-0 h-0 border-[6px] border-transparent transition-all duration-200;
+  }
+
+  .chat-bubble.user {
+    @apply ml-auto mr-2 bg-catppuccin-blue text-catppuccin-base;
+  }
+
+  .chat-bubble.user::before {
+    @apply right-[-10px] border-l-catppuccin-blue;
+  }
+
+  .chat-bubble.assistant {
+    @apply mr-auto ml-9 bg-catppuccin-surface2 text-catppuccin-text;
+  }
+
+  .chat-bubble.assistant::before {
+    @apply left-[-10px] border-r-catppuccin-surface2;
+  }
+
+  .expandable-input {
+    @apply min-h-[44px] max-h-[120px] resize-none overflow-y-auto px-4 py-3 leading-relaxed transition-all duration-200;
+  }
+
+  .character-avatar {
+    @apply absolute left-[-32px] bottom-0 w-7 h-7 rounded-full object-cover border-2 border-catppuccin-lavender 
+           transition-all duration-200 shadow-md;
+  }
+
+  .nav-button {
+    @apply text-catppuccin-lavender hover:text-catppuccin-blue transition-all transform hover:scale-110;
+  }
+
+  .settings-item {
+    @apply transition-all duration-200 hover:translate-y-[-2px];
+  }
+
+  .connection-status {
+    @apply inline-flex items-center px-2 py-1 rounded-xl text-xs transition-all duration-200;
+  }
+
+  .connection-status.online {
+    @apply bg-catppuccin-green text-catppuccin-base;
+  }
+
+  .connection-status.offline {
+    @apply bg-catppuccin-red text-catppuccin-base;
+  }
+}
+
+@layer utilities {
+  .touch-ripple {
+    @apply relative overflow-hidden;
+  }
+
+  .touch-ripple::before {
+    content: '';
+    @apply absolute inset-0 bg-current opacity-0 rounded-full scale-100 translate-x-[-50%] 
+           origin-center transition-all duration-200;
+  }
+
+  .touch-ripple:active::after {
+    animation: ripple 0.4s ease-out;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .chat-bubble {
+    @apply max-w-[88%] my-1.5 px-3.5 py-2.5;
+  }
+
+  .chat-bubble.assistant {
+    @apply ml-8;
+  }
+
+  .chat-bubble.user {
+    @apply mr-1.5;
+  }
+
+  .character-avatar {
+    @apply left-[-28px] w-6 h-6 border-[1.5px];
+  }
+
+  .idle-slider.active {
+    @apply w-20;
+  }
+}
